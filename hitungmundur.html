@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitung Mundur 15.00 WIB</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: url(IMG_2288.JPG);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+      margin-bottom: 30px;
+      background: linear-gradient(to right, #d2c984, #cfcc84, #d6d3bf);
+      border-radius: 8px 8px 0 0;
+      justify-content: center;
+    }
+
+    .card {
+      display: flex;
+      background: rgba(0, 0, 0, 0.75);
+      flex-direction: column;
+      align-items: center;
+      border-radius: 8px;
+    }
+    .judul {
+      margin: 0;
+      padding: none;
+    }
+    #countdown {
+      display: flex;
+      gap: 15px;
+      font-size: 3rem;
+      font-weight: bold;
+      justify-content: center;
+    }
+
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+    }
+
+    .label {
+      font-size: 1rem;
+      margin-top: 5px;
+      font-weight: normal;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+      #countdown {
+        font-size: 2rem;
+        gap: 10px;
+      }
+      .unit {
+        min-width: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="judul">
+      <h1>MENUJU PENGUMUMAN SELEKSI IRMAN 2025</h1>
+    </div>
+    <div id="countdown">
+      <div class="unit">
+        <div id="hours">00</div>
+        <div class="label">Jam</div>
+      </div>
+      <div class="unit">
+        <div id="minutes">00</div>
+        <div class="label">Menit</div>
+      </div>
+      <div class="unit">
+        <div id="seconds">00</div>
+        <div class="label">Detik</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+
+      // Buat tanggal target: hari ini pukul 15:00 WIB (WIB = UTC+7)
+      const target = new Date(now);
+      target.setHours(15, 0, 0, 0); // jam 15:00:00.000
+
+      // Jika sekarang lewat dari 15.00, target adalah besok
+      if (now.getTime() > target.getTime()) {
+        target.setDate(target.getDate() + 1);
+      }
+
+      const selisih = target.getTime() - now.getTime();
+
+      const hours = Math.floor((selisih / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((selisih / (1000 * 60)) % 60);
+      const seconds = Math.floor((selisih / 1000) % 60);
+
+      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+    }
+
+    // Update countdown setiap detik
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
